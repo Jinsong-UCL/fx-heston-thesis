@@ -87,9 +87,11 @@ end
 function vn=qe(v,k,b,s,dt)
 e=exp(-k*dt); m=b+(v-b).*e;
 s2=v.*s.^2.*e./k.*(1-e)+b.*s.^2./(2*k).*(1-e).^2;
-psi=s2./max(m.^2,realmin); U=rand(size(v)); vn=zeros(size(v)); low=psi<=1.5;
+psi=s2./max(m.^2,realmin); U=rand(size(v)); vn=zeros(size(v));
+deterministic=psi==0;vn(deterministic)=m(deterministic);
+low=psi<=1.5 & ~deterministic;
 b2=2./psi(low)-1+sqrt(2./psi(low)).*sqrt(2./psi(low)-1);
 vn(low)=m(low)./(1+b2).*(sqrt(b2)+sqrt(2)*erfinv(2*U(low)-1)).^2;
-high=~low; prob=(psi(high)-1)./(psi(high)+1); z=U(high); values=zeros(size(z)); pos=z>prob;
+high=psi>1.5; prob=(psi(high)-1)./(psi(high)+1); z=U(high); values=zeros(size(z)); pos=z>prob;
 mh=m(high); values(pos)=log((1-prob(pos))./(1-z(pos))).*mh(pos)./(1-prob(pos)); vn(high)=values;
 end

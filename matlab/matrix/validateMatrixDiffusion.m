@@ -8,5 +8,6 @@ for b=1:numel(blocks)
  assert(p.beta>=(d-1)/4,'MatrixAudit:Beta','Block %d beta=%g violates beta >= (d-1)/4 for this noise scaling.',b,p.beta);
  assert(norm(p.rho,2)<=1+1e-12,'MatrixAudit:Correlation','Block %d rho is not a Brownian contraction.',b);
  assert(norm(p.am,'fro')==0,'MatrixAudit:Numeraire','This implementation assumes am=0.');
+ assert(norm(p.an-p.an.','fro')<1e-12,'MatrixAudit:LoadingSymmetry','FX loading an must be symmetric.');
 end
 end
