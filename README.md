@@ -93,7 +93,7 @@ python python/run_vector.py --factors 1 --parameters results/vector_N1/calibrati
 
 The Python checker tests covariance, noncommuting Riccati equations, scalar
 reduction, numeraire moments, saved vector prices, and put-call parity. GitHub
-Actions runs these checks on every push. MATLAB calibration and simulation are
+Actions is configured to run these checks on every push. MATLAB calibration and simulation are
 validated locally with:
 
 ```matlab
